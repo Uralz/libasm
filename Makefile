@@ -7,21 +7,23 @@ SRC = 	ft_strlen.s\
 		ft_read.s\
 		ft_strdup.s
 
-OBJ = $(SRC: *.s = *.o)
+OBJ = $(SRC:.s=.o)
 
-%.o: %.s
+%.o: src/%.s
 	nasm -felf64 $<
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-#	ranlib $(NAME)
+	ar rc $(NAME) $(addprefix src/, $(OBJ))
+
+test: re
+	clang -L. main.c -lasm
 
 clean:
-	rm -f *.o
+	rm -f $(addprefix src/, $(OBJ))
 fclean: clean
 	rm -f $(NAME)
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test
