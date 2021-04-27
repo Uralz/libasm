@@ -9,21 +9,24 @@ SRC = 	ft_strlen.s\
 
 OBJ = $(SRC:.s=.o)
 
-%.o: src/%.s
-	nasm -felf64 $<
+%.o: %.s
+	nasm -f macho64 $<
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(addprefix src/, $(OBJ))
+	ar rc $(NAME) $(OBJ)
+
+$(OBJ): libasm.h
 
 test: re
-	clang -L. main.c -lasm
+	$(CC) -L. main.c -lasm
 
 clean:
-	rm -f $(addprefix src/, $(OBJ))
+	rm -f $(OBJ)
 fclean: clean
 	rm -f $(NAME)
+	rm -f a.out
 re: fclean all
 
 .PHONY: all clean fclean re test

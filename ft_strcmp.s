@@ -1,6 +1,6 @@
-            global ft_strcmp
+            global _ft_strcmp
             section .text
-ft_strcmp:
+_ft_strcmp:
             xor     rcx, rcx                ;set rcx (counter) to zero
             xor     rax, rax                ;set rax to zero
             xor     rdx, rdx                ;set rdx to zero

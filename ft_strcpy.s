@@ -1,6 +1,6 @@
-            global ft_strcpy
+            global _ft_strcpy
             section .text
-ft_strcpy:
+_ft_strcpy:
             xor     rcx, rcx                ;set rcx (counter) to zero
 .loop:
             mov     al, [rsi + rcx]         ;copy symbol from src to al register (low rax)

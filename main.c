@@ -6,7 +6,7 @@
 /*   By: wbritni <wbritni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 22:28:53 by wbritni           #+#    #+#             */
-/*   Updated: 2021/03/31 21:28:16 by wbritni          ###   ########.fr       */
+/*   Updated: 2021/04/27 10:53:04 by wbritni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,64 +19,125 @@
 
 int main(void)
 {
-    char    *str;
-    char    dest[10];
-    char    *str2;
-    char    *buff;
+    char    buff[100];
     int     fd;
     int     ret;
 
-    fd = open("dir", O_RDONLY);
-    printf("fd: %d\n", fd);
+/*
+** ft_write
+*/
+	printf("\n*******FT_WRITE*******\n--------------\n");
+	printf("\ttry (1, \"test\\n\", 5)\n");
+   
     errno = 0;
-    ret = ft_read(fd, buff, 1);
-    printf("ft_read errno: %d\n", errno);
-    printf("%s\n", strerror(errno));
-    printf("return: %d\n", ret);
-    
-    errno = 0;
-    ret = read(fd, buff, 1);
-    printf("read errno: %d\n", errno);
-    printf("%s\n", strerror(errno));
-    printf("return: %d\n", ret);
-
-    errno = 0;
-    ret = write(fd, "r", 1);
+    ret = write(1, "test\n", 5);
     printf("write errno: %d\n", errno);
     printf("%s\n", strerror(errno));
-    printf("return: %d\n", ret);
+    printf("write return: %d\n\n", ret);
     
     errno = 0;
-    ret = ft_write(fd, "r", 1);
+    ret = ft_write(1, "test\n", 5);
     printf("ft_write errno: %d\n", errno);
     printf("%s\n", strerror(errno));
-    printf("return: %d\n", ret);
+    printf("ft_write return: %d\n\n", ret);
+
+	printf("\ttry (-1, \"test\\n\", 5)\n");
+	errno = 0;
+    ret = write(-1, "test\n", 5);
+    printf("write errno: %d\n", errno);
+    printf("%s\n", strerror(errno));
+    printf("write return: %d\n\n", ret);
+
+	errno = 0;
+    ret = ft_write(-1, "test\n", 5);
+    printf("ft_write errno: %d\n", errno);
+    printf("%s\n", strerror(errno));
+    printf("ft_write return: %d\n\n", ret);
 
 /*
-    str = "abcd";
-    str2 = "abcde";
-    printf("%d\n", ft_strlen(str));
-    printf("%s\n", str);
-    printf("%s\n", dest);
-    ft_strcpy(dest, str);
-    printf("%s\n", dest);
-    printf("%d\n", strcmp(str, str2));
-    printf("%d\n", ft_strcmp(str, str2));
-    write(1, "this is write\n", 14);
-    ft_write(1, "this is write\n", 14);
-
-//    buff = (char *)calloc(10, sizeof(char));
-//    read(1, buff, 10);
-//    printf("%s is read\n", buff);
-//    bzero(buff, 10);
-//   ft_read(1, buff, 10);
-//    printf("%s is ft_read\n", buff);
-
-   buff = strdup(str2);
-   printf("strdup - %s\n", buff);
-   free(buff);
-   buff = ft_strdup(str2);
-   printf("ft_strdup - %s\n", buff);
-   free(buff);
+** FT_STRLEN
 */
+	printf("*******FT_STRLEN*******\n--------------\n");
+	printf("ft_strlen(\"abcdeabcdeabcdeabcdeabcdeabcde\") = %d\n", ft_strlen("abcdeabcdeabcdeabcdeabcdeabcde"));
+	printf("ft_strlen(\"\") = %d\n\n", ft_strlen(""));
+
+/*
+** FT_STRCPY
+*/
+	printf("*******FT_STRCPY*******\n--------------\n");
+	memset(buff, '\0', 100);
+	memset(buff, '*', 10);
+	printf("buff: %s\n", buff);
+	printf("ft_strcpy(buff, \"\")\n");
+	ft_strcpy(buff, "");
+	printf("buff: %s\n", buff);
+	printf("ft_strcpy(buff, \"012345678901234567890123456789012345678901234567890123456789\")\n");
+	ft_strcpy(buff, "012345678901234567890123456789012345678901234567890123456789");
+	printf("buff: %s\n\n", buff);
+
+/*
+** FT_STRCMP
+*/
+	printf("*******FT_STRCMP*******\n--------------\n");
+	printf("ft_strcmp(\"abcd\", \"abcd\"): %d\n", ft_strcmp("abcd", "abcd"));
+	printf("strcmp(\"abcd\", \"abcd\"): %d\n\n", strcmp("abcd", "abcd"));
+	printf("ft_strcmp(\"abcd\", \"abcde\"): %d\n", ft_strcmp("abcde", "abcd"));
+	printf("strcmp(\"abcd\", \"abcde\"): %d\n\n", strcmp("abcde", "abcd"));
+	printf("ft_strcmp(\"abcde\", \"abcd\"): %d\n", ft_strcmp("abcd", "abcde"));
+	printf("strcmp(\"abcde\", \"abcd\"): %d\n\n", strcmp("abcd", "abcde"));
+	printf("ft_strcmp(\"\", \"\"): %d\n", ft_strcmp("", ""));
+	printf("strcmp(\"\", \"\"): %d\n\n", strcmp("", ""));
+	printf("ft_strcmp(\"abc\", \"\"): %d\n", ft_strcmp("abc", ""));
+	printf("strcmp(\"abc\", \"\"): %d\n\n", strcmp("abc", ""));
+	printf("ft_strcmp(\"\", \"abc\"): %d\n", ft_strcmp("", "abc"));
+	printf("strcmp(\"\", \"abc\"): %d\n\n", strcmp("", "abc"));
+/*
+** FT_STRDUP
+*/
+	printf("*******FT_STRDUP*******\n--------------\n");
+	char *res = "";
+	printf("res: %s\n", res);
+	printf("res = ft_strdup(\"ft_ft_ft\")\n");
+	res = ft_strdup("ft_ft_ft");
+	printf("res: %s\n\n", res);
+	free(res);
+	printf("res = ft_strdup(\"dup_dup_dup\")\n");
+	res = ft_strdup("dup_dup_dup");
+	printf("res: %s\n", res);
+	free(res);
+/*
+** ft_read
+*/
+	printf("\n*******FT_READ*******\n--------------\n");
+	memset(buff, '\0', 100);
+	printf("\ttry ft_read w stdin: \n");
+	ret = ft_read(0, buff, 3);
+	printf("\nft_read return: %d\n", ret);
+	printf("%s\n", buff);
+	
+	fd = open("main.c", O_RDONLY);
+	printf("\ttry (fd, buff, 10)\n");
+	ret = ft_read(fd, buff, 10);
+    printf("ft_read errno: %d\n", errno);
+    printf("%s\n", strerror(errno));
+    printf("ft_read return: %d\n\n", ret);
+	
+	errno = 0;
+    ret = read(fd, buff, 10);
+    printf("read errno: %d\n", errno);
+    printf("%s\n", strerror(errno));
+    printf("read return: %d\n\n", ret);
+    
+    errno = 0;
+	printf("\ttry (-1, buff, 10)\n");
+    ret = ft_read(-1, buff, 10);
+    printf("ft_read errno: %d\n", errno);
+    printf("%s\n", strerror(errno));
+    printf("ft_read return: %d\n\n", ret);
+    
+    errno = 0;
+    ret = read(-1, buff, 10);
+    printf("read errno: %d\n", errno);
+    printf("%s\n", strerror(errno));
+    printf("read return: %d\n\n", ret);
 }

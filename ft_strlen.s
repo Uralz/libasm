@@ -1,6 +1,6 @@
-            global ft_strlen
+            global _ft_strlen
             section .text
-ft_strlen: 
+_ft_strlen: 
             xor rax, rax            ;set count value (rax) to zero
 .loop:
             cmp byte [rdi + rax], 0 ;compare current symbol with zero (end of line)
