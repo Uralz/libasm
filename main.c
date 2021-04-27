@@ -6,7 +6,7 @@
 /*   By: wbritni <wbritni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 22:28:53 by wbritni           #+#    #+#             */
-/*   Updated: 2021/04/27 10:53:04 by wbritni          ###   ########.fr       */
+/*   Updated: 2021/04/27 11:30:42 by wbritni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int main(void)
 	
 	fd = open("main.c", O_RDONLY);
 	printf("\ttry (fd, buff, 10)\n");
+	errno = 0;
 	ret = ft_read(fd, buff, 10);
     printf("ft_read errno: %d\n", errno);
     printf("%s\n", strerror(errno));
